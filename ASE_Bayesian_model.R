@@ -1,4 +1,9 @@
-#read in the data
+#read in the data, 2 treatments are run separately!!
+#control treatment
+parent.dat <- read.csv("parent20_9679.csv",header=T)
+hybrid.dat <- read.csv("hybrid20_9679.csv",header=T)
+
+#heatstress treatment
 parent.dat <- read.csv("parent35_9679.csv",header=T)
 hybrid.dat <- read.csv("hybrid35_9679.csv",header=T)
 
@@ -121,50 +126,3 @@ print(gene.ran)
 
 # checking MCMC parameters
 plot(gene.ran)
-
-#summarizing data
-#can extract results directly from gene.ran
-#gene.ran$BUGSoutput$mean $sd $median
-library(gtools)
-# try plotting posterior distribution
-library(ggplot2)
-P.norm <- as.data.frame(P[,30])
-ggolot()
-
-library(rethinking) #get HDPI from posterior distribution
-library(tRophicPosition) #get mode from posterior distribution
-HS.ASE <- NULL
-CT.ASE <- NULL
-HPDI.lower <- NULL
-HPDI.upper <- NULL
-P.mode <- NULL
-P.mean <- round(gene.ran$BUGSoutput$mean$P,4)
-P.sd <- round(gene.ran$BUGSoutput$sd$P,4)
-P.med <- round(gene.ran$BUGSoutput$median$P,4)
-
-#making raw data file
-#table for the P values for future graphing purpose
-P.raw <- NULL
-for (i in 1:n.genes){
-  P.norm <- as.data.frame(P[,i])
-  P.raw <- append(P.raw,P.norm)
-}
-P.raw <- as.data.frame(P.raw)
-P.raw <- t(P.raw) #transpose
-write.csv(P.raw,"P_rawData_CT.csv")
-
-
-#making summary file
-for (i in 1:n.genes){
-  P.norm <- as.data.frame(P[,i])
-  P.mode <- append(P.mode,getPosteriorMode(P.norm[,1])) #this step takes a long time
-  sig.value <- as.data.frame(HPDI(P.norm,prob=0.95))
-  HPDI.lower <- append(HPDI.lower,sig.value[1,1])
-  HPDI.upper <- append(HPDI.upper,sig.value[2,1])
-  if(sig.value[1,]>0.5) {CT.ASE <- append(CT.ASE,"SD bias")}
-  else if (sig.value[2,] < 0.5) {CT.ASE <- append(CT.ASE,"SC bias")}
-  else {CT.ASE <- append(CT.ASE,"not significant")}
-}
-
-summary <- cbind(1:n.genes,P.mean,P.sd,P.med,P.mode,HPDI.lower,HPDI.upper,CT.ASE,HS.ASE)
-write.csv(summary,"ASE20_results_v2.csv")
