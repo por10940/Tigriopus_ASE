@@ -1,11 +1,6 @@
-#files are in the unique->bayesian model
-setwd()
 #read in the data
 parent.dat <- read.csv("parent35_9679.csv",header=T)
 hybrid.dat <- read.csv("hybrid35_9679.csv",header=T)
-#20 for control treatment
-#change to 35 for heat stress treatment
-#look at model_noTempOffset.R in unique->test->test data
 
 
 # Make the data for the model
@@ -123,9 +118,6 @@ attach.jags(gene.ran)
 
 # check model 
 print(gene.ran)
-# only try this on test run with 10 genes!!!!!
-# give you vectors saved parameters including mu, sd, 2.5-97.5 percentile, Rhat and n.eff(effective sample size)
-# also give DIC info at the end
 
 # checking MCMC parameters
 plot(gene.ran)
