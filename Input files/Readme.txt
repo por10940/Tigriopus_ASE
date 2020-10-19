@@ -10,3 +10,4 @@ This folder contains input files for the model
 9679ContigName.csv = file contain matching reference contig names and gene names from blast
   The gene number in the input file is corresponding with the contig names in the 9679ContigNames.csv file
   
+Model Input folder contains files formatted for running ASE_Bayesian_model.R
