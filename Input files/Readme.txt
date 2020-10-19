@@ -23,8 +23,8 @@ Parent file (parent*.csv) column names
   Temp.hot: control treatment = 0, heat stress treatment = 1
   N.Correct: # of parental reads mapped to the correct reference (#SD parental reads that mapped to SD reference or #SC parental reads that mapped to SC reference)
   N.total: # of parental reads mapped to SD refercne + # of parental reads mapped to SC reference
-  N.is.SD: SD population 
-  N.is.SC:
+  N.is.SD: reads from SD population = 1, reads from SC population = 0 
+  N.is.SC: reads from SC population = 1, reads from SD population = 0
   
 Hybrid File (hybrid*.csv) column names
   Gene: contig order in 9769ContigNames.csv
