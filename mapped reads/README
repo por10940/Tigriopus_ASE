@@ -1,3 +1,4 @@
-This folder contains mapped reads files
+This folder contains raw mapped reads files. (no filtered)
+
 Unique reads = allele specific expression
 Total reads = combined reads that mapped to either parental population reference
